@@ -10,17 +10,18 @@ class Key {
 class Person {
     constructor(private key: Key){}
     getKey(): Key{
-        return key
+        return this.key
     }
 }
 class House {
-
-    constructor(public door:boolean, public key: Key){}
+public tenants: Person[] 
+    constructor(public door:boolean, public key: Key){
+        this.tenants = []
+    }
     comeIn(person: Person): Person[] | void {
-        const tenants: Person[] = []
 if (this.door === true) {
-    tenants.push(person)
-    return tenants
+    this.tenants.push(person)
+    return this.tenants
 } else {
     console.log("The door is closed")
 }
@@ -28,12 +29,13 @@ if (this.door === true) {
     openDoor(key: Key): void{}
 }
 class MyHouse extends House {
-    constructor(door:boolean, key: Key ){
+    constructor(door:boolean, key: Key){
         super(door, key)
+        this.tenants = []  
     }
     openDoor(key: Key): void{
-        if (key === this.key) {
-        this.door === true    
+        if (key.getSignature() === this.key.getSignature()) {
+        this.door = true    
         } else {
             console.log("incorrect key");
             
